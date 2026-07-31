@@ -1,11 +1,9 @@
 package org.example.worrydoll.service;
 
-import com.google.genai.Chat;
 import lombok.RequiredArgsConstructor;
 import org.example.worrydoll.entity.ChatMessage;
 import org.example.worrydoll.entity.ChatUser;
 import org.example.worrydoll.repository.ChatMessageJpaRepository;
-import org.example.worrydoll.repository.ChatMessageRepository;
 import org.example.worrydoll.repository.ChatUserRepository;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
