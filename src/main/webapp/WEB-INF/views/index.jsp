@@ -8,5 +8,6 @@
 <h1>걱정인형</h1>
 <%-- views -> ../ -> widgets -> ... --%>
 <jsp:include page="../widgets/userForm.jsp" />
+<jsp:include page="../widgets/chatForm.jsp" />
 </body>
 </html>

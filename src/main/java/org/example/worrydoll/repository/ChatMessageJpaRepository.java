@@ -14,5 +14,6 @@ public interface ChatMessageJpaRepository extends JpaRepository<ChatMessage, Lon
     List<String> findConversationIds();
 
     List<ChatMessage> findAllByConversationId(String conversationId);
+
     void deleteAllByConversationId(String conversationId);
 }

@@ -9,6 +9,7 @@ import org.springframework.ai.chat.messages.*;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED) // Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED) // JPA
+@ToString
 public class ChatMessage extends BaseEntity {
     private String conversationId;
     private String messageType;

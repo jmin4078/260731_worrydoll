@@ -5,6 +5,7 @@ import org.example.worrydoll.dto.ChatUserSessionDTO;
 import org.example.worrydoll.entity.ChatUser;
 import org.example.worrydoll.service.ChatService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +21,15 @@ public class MainController {
     }
 
     @GetMapping
-    public String index() {
+    public String index(Model model, HttpSession session) {
+        ChatUserSessionDTO chatUserSessionDTO = (ChatUserSessionDTO) session.getAttribute("chatUser");
+        if (chatUserSessionDTO != null) {
+            model.addAttribute("chats",
+                    chatService.getChatMessages(
+                            Long.toString(chatUserSessionDTO.getUserId())));
+        }
         return "index";
     }
-
     @PostMapping("/user")
     public String user(@RequestParam String username, HttpSession session) {
         ChatUser chatUser = chatService.getChatUser(username);
@@ -31,6 +37,14 @@ public class MainController {
                 ChatUserSessionDTO.builder()
                         .userId(chatUser.getId())
                         .username(username).build());
+        return "redirect:/";
+    }
+
+    @PostMapping("/chat")
+    public String chat(@RequestParam String content, HttpSession session) {
+        ChatUserSessionDTO chatUserSessionDTO = (ChatUserSessionDTO) session.getAttribute("chatUser");
+        String conversationId = Long.toString(chatUserSessionDTO.getUserId());
+        chatService.chat(conversationId, content);
         return "redirect:/";
     }
 }

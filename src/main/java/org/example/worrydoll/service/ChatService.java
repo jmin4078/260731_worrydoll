@@ -1,11 +1,18 @@
 package org.example.worrydoll.service;
 
+import com.google.genai.Chat;
 import lombok.RequiredArgsConstructor;
+import org.example.worrydoll.entity.ChatMessage;
 import org.example.worrydoll.entity.ChatUser;
+import org.example.worrydoll.repository.ChatMessageJpaRepository;
+import org.example.worrydoll.repository.ChatMessageRepository;
 import org.example.worrydoll.repository.ChatUserRepository;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 @Service
@@ -24,5 +31,23 @@ public class ChatService {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private final ChatClient chatClient;
+
+    @Transactional
+    public void chat(String conversationId, String content) {
+        // conversationId -> session (userId)
+        chatClient.prompt()
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationId))
+                .user(content)
+                .call()
+                .content();
+    }
+
+    private final ChatMessageJpaRepository jpaRepository;
+
+    public List<ChatMessage> getChatMessages(String conversationId) {
+        return jpaRepository.findAllByConversationId(conversationId);
     }
 }
