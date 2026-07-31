@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping
@@ -45,6 +46,17 @@ public class MainController {
         ChatUserSessionDTO chatUserSessionDTO = (ChatUserSessionDTO) session.getAttribute("chatUser");
         String conversationId = Long.toString(chatUserSessionDTO.getUserId());
         chatService.chat(conversationId, content);
+        return "redirect:/";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam String query,
+                         HttpSession session,
+                         RedirectAttributes redirectAttributes) {
+        ChatUserSessionDTO chatUserSessionDTO = (ChatUserSessionDTO) session.getAttribute("chatUser");
+        String conversationId = Long.toString(chatUserSessionDTO.getUserId());
+        redirectAttributes.addFlashAttribute("search",
+                chatService.search(query, conversationId));
         return "redirect:/";
     }
 }

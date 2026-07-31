@@ -9,5 +9,6 @@
 <%-- views -> ../ -> widgets -> ... --%>
 <jsp:include page="../widgets/userForm.jsp" />
 <jsp:include page="../widgets/chatForm.jsp" />
+<jsp:include page="../widgets/searchForm.jsp" />
 </body>
 </html>
