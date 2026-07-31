@@ -1,10 +1,8 @@
 package org.example.worrydoll.entity;
 
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.*;
-
 
 @Entity
 @Getter

@@ -9,12 +9,12 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.Instant;
 
 @MappedSuperclass
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) // JpaConfig -> @EnableJpaAuditing
 @Getter
-public abstract class BaseEntity {
+public abstract class BaseEntity { // 자동으로 생성되는 것들
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
     @Column(updatable = false)
     @CreatedDate
     private Instant createdAt;

@@ -6,6 +6,7 @@
 </head>
 <body>
 <h1>걱정인형</h1>
+<%-- views -> ../ -> widgets -> ... --%>
 <jsp:include page="../widgets/userForm.jsp" />
 </body>
 </html>

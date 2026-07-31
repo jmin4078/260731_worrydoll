@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.example.worrydoll.entity.ChatUser;
 import org.springframework.stereotype.Repository;
 
+import java.util.NoSuchElementException;
+
 @Repository
 @RequiredArgsConstructor
 public class ChatUserRepository {
@@ -13,7 +15,8 @@ public class ChatUserRepository {
         return chatUserJpaRepository.save(chatUser);
     }
 
-    public ChatUser findByUsername(String username) {
+    public ChatUser findByUsername(String username) throws NoSuchElementException {
         return chatUserJpaRepository.findByUsername(username).orElseThrow();
+        // NoSuchElementException
     }
 }
